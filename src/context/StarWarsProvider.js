@@ -5,7 +5,8 @@ import fetchApi from '../services/fetchApi';
 
 const StarWarsProvider = ({ children }) => {
   const [planets, setPlanets] = useState([]);
-  const [name, setName] = useState('');
+  const [filters, setFilters] = useState([]);
+  const [nameFilter, setNameFilter] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -16,8 +17,10 @@ const StarWarsProvider = ({ children }) => {
 
   const planetsContext = {
     planets,
-    name,
-    setName,
+    nameFilter,
+    setNameFilter,
+    filters,
+    setFilters,
   };
 
   const { Provider } = StarWarsContext;

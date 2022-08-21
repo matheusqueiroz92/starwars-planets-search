@@ -1,11 +1,9 @@
 import React, { useContext } from 'react';
 import StarWarsContext from '../context/StarWarsContext';
+import filterPlanets from '../helpers/filterPlanets';
 
 const Planets = () => {
-  const { planets, name: filterName } = useContext(StarWarsContext);
-
-  const filterByName = () => planets
-    .filter((planet) => planet.name.toLowerCase().includes(filterName.toLowerCase()));
+  const { planets, nameFilter, filters } = useContext(StarWarsContext);
 
   return (
     <table>
@@ -27,7 +25,7 @@ const Planets = () => {
         </tr>
       </thead>
       <tbody>
-        { filterByName().map((planet, index) => (
+        { filterPlanets(planets, nameFilter, filters).map((planet, index) => (
           <tr key={ index }>
             <td>{ planet.name }</td>
             <td>{ planet.rotation_period }</td>
