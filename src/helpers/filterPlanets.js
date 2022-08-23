@@ -4,9 +4,6 @@ const filterPlanets = (planets, nameFilter, filters) => {
   filteredPlanets = filteredPlanets.filter((planet) => planet.name.toLowerCase()
     .includes(nameFilter.toLowerCase()));
 
-  console.log(filteredPlanets);
-  console.log(filters);
-
   filters.forEach(({ column, comparison, valueFilter }) => {
     if (comparison === 'maior que') {
       filteredPlanets = filteredPlanets
