@@ -1,11 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import StarWarsContext from '../context/StarWarsContext';
-import FiltersResults from './FiltersResults';
+import './filters.css';
 
 const Filters = () => {
   const {
     nameFilter,
     setNameFilter,
+    filters,
     setFilters,
   } = useContext(StarWarsContext);
 
@@ -18,7 +19,7 @@ const Filters = () => {
   ]);
 
   const [filtered, setFiltered] = useState({
-    column: selectFilters[0],
+    column: 'population',
     comparison: 'maior que',
     valueFilter: '0',
   });
@@ -28,6 +29,32 @@ const Filters = () => {
     'menor que',
     'igual a',
   ];
+
+  const removeAllFilters = () => {
+    setFilters([]);
+  };
+
+  const removeFilter = ({ target: { name } }) => {
+    const elementRemove = filters[name];
+    const remove = filters.filter((element) => element !== elementRemove);
+    setFilters(remove);
+    setSelectFilters((preveSelectFilters) => ([
+      ...preveSelectFilters,
+      filters[name].column,
+    ]));
+  };
+
+  useEffect(() => {
+    const handleFilters = () => {
+      setFiltered((prevFilters) => ({
+        ...prevFilters,
+        column: selectFilters[0],
+        comparison: 'maior que',
+        valueFilter: '0',
+      }));
+    };
+    handleFilters();
+  }, [selectFilters]);
 
   const handleChangeName = ({ target: { value } }) => {
     setNameFilter(value);
@@ -50,7 +77,6 @@ const Filters = () => {
       selectFilters
         .filter((element) => element !== filtered.column),
     );
-    console.log(selectFilters[0]);
   };
 
   const { column, comparison, valueFilter } = filtered;
@@ -109,11 +135,35 @@ const Filters = () => {
             type="submit"
             data-testid="button-filter"
           >
-            Filter
+            Filtrar
+          </button>
+          <button
+            type="button"
+            data-testid="button-remove-filters"
+            onClick={ removeAllFilters }
+          >
+            Remover Filtros
           </button>
         </div>
       </form>
-      <FiltersResults />
+      <div>
+        { filters.length > 0
+          ? filters.map((element, index) => (
+            <div className="div-filters" key={ (`d ${index}`) } data-testid="filter">
+              <p key={ (`p ${index}`) }>
+                { (`${element.column} ${element.comparison} ${element.valueFilter}`) }
+              </p>
+              <button
+                type="button"
+                name={ index }
+                key={ (`b ${index}`) }
+                onClick={ removeFilter }
+              >
+                x
+              </button>
+            </div>))
+          : <p /> }
+      </div>
     </div>
   );
 };
