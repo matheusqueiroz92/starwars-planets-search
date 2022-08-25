@@ -110,11 +110,3 @@ describe('Testando o componente Table', () => {
     expect(urlColumn).toBeInTheDocument();
   });
 });
-
-  // test('testando se ao digitar o nome a tabela é filtrada', () => {
-  //   render(<App />);
-  //   const nameInput = screen.getByTestId("name-filter");
-  //   const planetSearch = screen.findByText(/tatooine/i);
-  //   userEvent.type(nameInput, 'tatoo');
-  //   expect(planetSearch).toHaveProperty('value', 'tatoo'); 
-  // });
