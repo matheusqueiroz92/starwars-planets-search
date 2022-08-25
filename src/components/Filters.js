@@ -67,6 +67,10 @@ const Filters = () => {
     }));
   };
 
+  const deleteName = () => {
+    setNameFilter('');
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     setFilters((prevFilters) => ([
@@ -93,6 +97,12 @@ const Filters = () => {
             onChange={ handleChangeName }
           />
         </label>
+        <button
+          type="button"
+          onClick={ deleteName }
+        >
+          Apagar
+        </button>
         <div>
           <label htmlFor="column-filter">
             Coluna:

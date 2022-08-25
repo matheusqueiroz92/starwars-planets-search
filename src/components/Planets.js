@@ -4,7 +4,6 @@ import filterPlanets from '../helpers/filterPlanets';
 
 const Planets = () => {
   const { planets, nameFilter, filters } = useContext(StarWarsContext);
-
   return (
     <div>
       <table>
